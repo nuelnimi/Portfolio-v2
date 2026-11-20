@@ -4,6 +4,7 @@ import { BsGithub } from "react-icons/bs";
 import { useParams } from "react-router-dom";
 import Container from "../components/sections/Container";
 import Title from "../components/UI/Title";
+import HScroll from "../components/UI/HScroll";
 import { projects } from "../context";
 import { IProject } from "../types/types";
 const SinglePortfolio = () => {
@@ -22,22 +23,22 @@ const SinglePortfolio = () => {
     : project?.image
     ? [project.image]
     : [];
-  const isMobile = project?.platform === "mobile";
+  const isMobile = project?.platform === "mobile" && screenshots.length > 0;
 
   return (
     <Container nextPageLink={`/portfolio`} nextPageText={`View other projects`}>
       <section className="w-full py-8">
-        <div
-          className={`flex gap-5 overflow-x-auto horizontal-scrollbar pb-4 ${
+        <HScroll
+          className={`flex gap-5 pb-2 snap-x ${
             isMobile ? "items-start" : "items-center"
           }`}
         >
           {screenshots.length === 0 && (
-            <div className="w-full min-h-[360px] rounded-[10px] bg-mainDarkColor text-white flex flex-col items-center justify-center text-center p-8">
+            <div className="w-full min-h-[260px] sm:min-h-[360px] rounded-[10px] bg-mainDarkColor text-white flex flex-col items-center justify-center text-center p-8">
               <span className="text-[13px] uppercase tracking-[0.22em] opacity-60 mb-4">
                 {project?.confidential ? "NDA Protected" : "Project Preview"}
               </span>
-              <span className="text-[40px] sm:text-[64px] leading-tight font-bold tracking-[-0.05em]">
+              <span className="text-[32px] sm:text-[64px] leading-tight break-words font-bold tracking-[-0.05em]">
                 {project?.placeholderLabel || project?.name}
               </span>
               {project?.confidential && (
@@ -53,7 +54,7 @@ const SinglePortfolio = () => {
               key={screenshot}
               className={
                 isMobile
-                  ? `relative min-w-[250px] sm:min-w-[300px] h-[500px] sm:h-[600px] overflow-hidden ${
+                  ? `relative min-w-[230px] xs:min-w-[250px] sm:min-w-[300px] h-[460px] xs:h-[500px] sm:h-[600px] overflow-hidden ${
                       project?.hasDeviceFrame
                         ? "bg-transparent"
                         : "rounded-[30px] border-[8px] border-mainDarkColor bg-white"
@@ -65,7 +66,7 @@ const SinglePortfolio = () => {
                 <div className="absolute top-2 left-1/2 -translate-x-1/2 w-24 h-5 bg-mainDarkColor rounded-full z-[1]" />
               )}
               <img
-                src={`../images/projects/${screenshot}`}
+                src={`/images/projects/${screenshot}`}
                 alt={`${project?.name} screen ${index + 1}`}
                 className={`w-full h-full ${
                   isMobile
@@ -78,9 +79,9 @@ const SinglePortfolio = () => {
               />
             </div>
           ))}
-        </div>
-        <Title topOfPage={false} text={(project?.name as string) + "."} />
-        <h3 className="mt-4 font-light text-[17px]">
+        </HScroll>
+        <Title topOfPage={false} level={1} text={(project?.name as string) + "."} />
+        <div className="mt-4 font-light text-[17px]">
           {project?.desc.split(".").map((desc, index) => {
             return (
               <p key={index} className="text-mainDarkColor">
@@ -91,8 +92,8 @@ const SinglePortfolio = () => {
               </p>
             );
           })}
-        </h3>
-        <h3 className="font-bold text-[24px] mt-4">Tools.</h3>
+        </div>
+        <h2 className="font-bold text-[24px] mt-4">Tools.</h2>
         {project?.role && (
           <p className="mt-2 text-mainDarkColor">
             <span className="font-bold">My role:</span> {project.role}
@@ -103,7 +104,7 @@ const SinglePortfolio = () => {
             project?.tools?.map((tool, index) => {
               return (
                 <span
-                  className="items-center px-4 py-2 rounded-md bg-mainDarkColor text-white cursor-pointer"
+                  className="items-center px-4 py-3 sm:py-2 rounded-md bg-mainDarkColor text-white cursor-pointer text-center"
                   key={index}
                 >
                   {tool}
@@ -119,14 +120,14 @@ const SinglePortfolio = () => {
           project?.links?.appStore ||
           project?.links?.playStore) && (
           <>
-            <h3 className="mt-4 font-bold text-[24px] mb-2">Links.</h3>
-            <div className="flex gap-y-2 gap-x-4 w-full sm:flex-row flex-col items-start">
+            <h2 className="mt-4 font-bold text-[24px] mb-2">Links.</h2>
+            <div className="flex gap-y-2 gap-x-4 w-full sm:flex-row flex-col items-stretch sm:items-start">
           {project?.links?.live && (
             <a
               target={"_blank"}
               rel="noreferrer"
               href={project?.links?.live}
-              className="items-center px-4 py-2 rounded-md bg-mainDarkColor text-white cursor-pointer"
+              className="items-center px-4 py-3 sm:py-2 rounded-md bg-mainDarkColor text-white cursor-pointer text-center"
             >
               View project live{" "}
               <span className="inline-block ml-2 align-middle">
@@ -138,8 +139,8 @@ const SinglePortfolio = () => {
             <a
               target={"_blank"}
               rel="noreferrer"
-              href={"https://github.com/daniel-dunsin" + project?.links?.github}
-              className="items-center px-4 py-2 rounded-md bg-mainDarkColor text-white cursor-pointer"
+              href={project?.links?.github}
+              className="items-center px-4 py-3 sm:py-2 rounded-md bg-mainDarkColor text-white cursor-pointer text-center"
             >
               View on github{" "}
               <span className="inline-block ml-2 align-middle">
@@ -152,7 +153,7 @@ const SinglePortfolio = () => {
               target="_blank"
               rel="noreferrer"
               href={project.links.appStore}
-              className="items-center px-4 py-2 rounded-md bg-mainDarkColor text-white cursor-pointer"
+              className="items-center px-4 py-3 sm:py-2 rounded-md bg-mainDarkColor text-white cursor-pointer text-center"
             >
               View on App Store
             </a>
@@ -162,7 +163,7 @@ const SinglePortfolio = () => {
               target="_blank"
               rel="noreferrer"
               href={project.links.playStore}
-              className="items-center px-4 py-2 rounded-md bg-mainDarkColor text-white cursor-pointer"
+              className="items-center px-4 py-3 sm:py-2 rounded-md bg-mainDarkColor text-white cursor-pointer text-center"
             >
               View on Google Play
             </a>

@@ -3,6 +3,7 @@ import Container from "../components/sections/Container";
 import FilterButtons from "../components/UI/FilterButtons";
 import SingleProject from "../components/UI/singleProject";
 import Title from "../components/UI/Title";
+import HScroll from "../components/UI/HScroll";
 import { useGlobalContext } from "../context";
 
 const Portfolio = () => {
@@ -30,13 +31,13 @@ const Portfolio = () => {
                   smallSize={true}
                 />
                 {project.projects.length > 0 ? (
-                  <div className="flex items-center justify-start overflow-x-scroll horizontal-scroll gap-[1rem] pb-4">
+                  <HScroll className="flex items-center justify-start snap-x gap-[1rem] pb-2">
                     {project.projects.map((project) => (
                       <SingleProject key={project.id} {...project} />
                     ))}
-                  </div>
+                  </HScroll>
                 ) : (
-                  <div className="flex items-center gap-6 bg-white rounded-[10px] p-5 sm:p-7 max-w-[680px] shadow-sm">
+                  <div className="flex items-center gap-4 sm:gap-6 bg-white rounded-[10px] p-5 sm:p-7 max-w-[680px] shadow-sm">
                     <div className="w-[82px] h-[150px] shrink-0 rounded-[18px] border-[5px] border-mainDarkColor bg-mainGrayColor p-2">
                       <div className="w-7 h-1 rounded-full bg-mainDarkColor mx-auto mb-4" />
                       <div className="w-full h-8 rounded bg-mainDarkColor/20 mb-2" />

@@ -6,18 +6,19 @@ import { BsSearch } from "react-icons/bs";
 type singleProjectProps = IProject;
 
 const SingleProject: FC<singleProjectProps> = (props) => {
-  const isMobile = props.platform === "mobile";
+  // phone frame only when there is a real app screenshot to put in it
+  const isMobile = props.platform === "mobile" && !!props.image;
 
   return (
     <article
       className={`hoverImg relative overflow-hidden shadow-md bg-mainDarkColor ${
         isMobile
-          ? `mobile-project-card min-w-[270px] h-[470px] rounded-[28px] ${
+          ? `mobile-project-card min-w-[240px] xs:min-w-[270px] h-[420px] xs:h-[470px] rounded-[28px] ${
               props.hasDeviceFrame
                 ? "bg-transparent"
                 : "border-[7px] border-mainDarkColor"
             }`
-          : "min-w-[350px] h-[200px] rounded-[10px]"
+          : "min-w-[85vw] sm:min-w-[350px] h-[200px] rounded-[10px]"
       }`}
     >
       <div
@@ -27,7 +28,7 @@ const SingleProject: FC<singleProjectProps> = (props) => {
       >
         {props.image ? (
           <img
-            src={`./images/projects/${props.image}`}
+            src={`/images/projects/${props.image}`}
             alt={`${props.name} project preview`}
             className={`w-full h-full ${
               isMobile
@@ -59,7 +60,7 @@ const SingleProject: FC<singleProjectProps> = (props) => {
           {props.role && ` • ${props.role}`}
           {props.confidential && " • confidential"}
         </span>
-        <h2 className="text-[18px] font-bold">{props.name}</h2>
+        <h3 className="text-[18px] font-bold">{props.name}</h3>
         <Link
           to={"/portfolio/" + props.id}
           className="px-3 py-2 bg-mainDarkColor max-w-fit rounded-md shadow-md flex items-center gap-x-4"

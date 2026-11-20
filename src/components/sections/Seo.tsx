@@ -1,62 +1,87 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { projects } from "../../data/projects";
+import {
+  absoluteUrl,
+  metaFor,
+  normalizePath,
+  schemasFor,
+  OG_IMAGE_HEIGHT,
+  OG_IMAGE_WIDTH,
+  SITE_NAME,
+} from "../../seo/site";
 
-const siteUrl = "https://mannycodes-portfolio.vercel.app";
-
-const pageMeta: Record<string, { title: string; description: string }> = {
-  "/": {
-    title: "Oladele Emmanuel | Software & AI/ML Engineer",
-    description:
-      "Portfolio of Oladele Emmanuel, a software and AI/ML engineer building accessible web, mobile, desktop, multilingual AI, and Web3-enabled products.",
-  },
-  "/about": {
-    title: "About Oladele Emmanuel | Software & AI/ML Engineer",
-    description:
-      "Learn about Oladele Emmanuel's software engineering, AI/ML, mobile, and Web3 experience, technical skills, hackathon wins, and education milestones.",
-  },
-  "/portfolio": {
-    title: "Projects | Oladele Emmanuel",
-    description:
-      "Explore web, mobile, 3D, AI, and Web3-enabled products built by Oladele Emmanuel, including Verith, Vectra, GodConnect, and Hypa Intelligence.",
-  },
-  "/contact": {
-    title: "Contact Oladele Emmanuel | Software Engineer",
-    description:
-      "Contact Oladele Emmanuel for software engineering, frontend, mobile, AI/ML, Web3 integration, product development, and technical collaboration.",
-  },
+const upsert = (
+  tag: "meta" | "link",
+  attr: string,
+  key: string,
+  valueAttr: string,
+  value: string
+) => {
+  let el = document.head.querySelector(`${tag}[${attr}="${key}"]`);
+  if (!el) {
+    el = document.createElement(tag);
+    el.setAttribute(attr, key);
+    document.head.appendChild(el);
+  }
+  el.setAttribute(valueAttr, value);
 };
 
-const setMeta = (selector: string, attribute: string, value: string) => {
-  document.querySelector(selector)?.setAttribute(attribute, value);
-};
+const allProjects = projects.flatMap((category) => category.projects);
 
+/** Keeps head tags + structured data in sync with the current route. */
 const Seo = () => {
   const { pathname } = useLocation();
 
   useEffect(() => {
-    const projectId = pathname.match(/^\/portfolio\/(\d+)$/)?.[1];
-    const project = projectId
-      ? projects
-          .flatMap((category) => category.projects)
-          .find((item) => item.id === Number(projectId))
+    const path = normalizePath(pathname);
+    const id = path.match(/^\/portfolio\/(\d+)$/)?.[1];
+    const project = id
+      ? allProjects.find((item) => item.id === Number(id))
       : undefined;
-    const meta = project
-      ? {
-          title: `${project.name} | Oladele Emmanuel`,
-          description: project.desc,
-        }
-      : pageMeta[pathname] || pageMeta["/"];
-    const canonicalUrl = `${siteUrl}${pathname === "/" ? "" : pathname}`;
+    const meta = metaFor(path, project);
+    const known = meta.known;
+    const url = absoluteUrl(path);
 
     document.title = meta.title;
-    setMeta('meta[name="description"]', "content", meta.description);
-    setMeta('meta[property="og:title"]', "content", meta.title);
-    setMeta('meta[property="og:description"]', "content", meta.description);
-    setMeta('meta[property="og:url"]', "content", canonicalUrl);
-    setMeta('meta[name="twitter:title"]', "content", meta.title);
-    setMeta('meta[name="twitter:description"]', "content", meta.description);
-    setMeta('link[rel="canonical"]', "href", canonicalUrl);
+    upsert("meta", "name", "description", "content", meta.description);
+    upsert(
+      "meta",
+      "name",
+      "robots",
+      "content",
+      known
+        ? "index, follow, max-image-preview:large"
+        : "noindex, nofollow"
+    );
+    upsert("link", "rel", "canonical", "href", url);
+
+    upsert("meta", "property", "og:type", "content", "website");
+    upsert("meta", "property", "og:site_name", "content", SITE_NAME);
+    upsert("meta", "property", "og:title", "content", meta.title);
+    upsert("meta", "property", "og:description", "content", meta.description);
+    upsert("meta", "property", "og:url", "content", url);
+    upsert("meta", "property", "og:image", "content", meta.image);
+    upsert("meta", "name", "twitter:card", "content", "summary_large_image");
+    upsert("meta", "name", "twitter:title", "content", meta.title);
+    upsert("meta", "name", "twitter:description", "content", meta.description);
+    upsert("meta", "name", "twitter:image", "content", meta.image);
+    if (!project) {
+      upsert("meta", "property", "og:image:width", "content", String(OG_IMAGE_WIDTH));
+      upsert("meta", "property", "og:image:height", "content", String(OG_IMAGE_HEIGHT));
+    }
+
+    // replace this page's JSON-LD (keep the site-wide Person/WebSite in the static head)
+    document.head
+      .querySelectorAll('script[data-seo="page"]')
+      .forEach((n) => n.remove());
+    schemasFor(path, project, allProjects).forEach((schema) => {
+      const s = document.createElement("script");
+      s.type = "application/ld+json";
+      s.dataset.seo = "page";
+      s.text = JSON.stringify(schema);
+      document.head.appendChild(s);
+    });
   }, [pathname]);
 
   return null;

@@ -10,7 +10,7 @@ const OELogo = ({ className = "w-[90px] h-[90px]" }: OELogoProps) => {
       viewBox="0 0 120 120"
       className={className}
       role="img"
-      aria-label="Oladele Emmanuel logo"
+      aria-label="Emmanuel Oluwaferanmi Oladele logo"
       xmlns="http://www.w3.org/2000/svg"
     >
       <g fill="currentColor">

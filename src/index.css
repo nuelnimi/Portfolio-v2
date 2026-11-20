@@ -5,27 +5,37 @@
 @font-face {
   font-family: "questrial";
   src: url(./assets/fonts/Questrial-Regular.ttf);
+  font-display: swap;
 }
 
 * {
   font-family: "questrial";
 }
 
-*::-webkit-scrollbar {
-  /* background-color: red; */
-  background-color: #777;
-  border-radius: 20px;
-  width: 10px;
+/* page scrollbar hidden: Lenis scrolls it, the top progress bar shows position */
+html {
+  scrollbar-width: none;
 }
-*::-webkit-scrollbar-thumb {
-  /* width: 100%; */
-  background-color: #333;
-  border-radius: 20px;
+html::-webkit-scrollbar {
+  display: none;
 }
-
-.horizontal-scrollbar::-webkit-scrollbar {
-  background-color: transparent;
-  height: 5px;
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.hscroll {
+  overscroll-behavior-x: contain;
+}
+.hscroll.is-dragging {
+  cursor: grabbing;
+  user-select: none;
+  scroll-snap-type: none;
+}
+.hscroll.is-dragging * {
+  pointer-events: none;
 }
 
 .container {
@@ -148,4 +158,25 @@
     rgba(0, 0, 0, 0.1) 60%,
     transparent 100%
   );
+}
+
+html,
+body {
+  max-width: 100%;
+  overflow-x: hidden;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* Touch devices have no hover: always show project info overlay */
+@media (hover: none) {
+  .hoverImg .hoverText {
+    width: 100%;
+    opacity: 1;
+    background: linear-gradient(
+      to top,
+      rgba(0, 0, 0, 0.85) 0%,
+      rgba(0, 0, 0, 0.1) 60%,
+      transparent 100%
+    );
+  }
 }

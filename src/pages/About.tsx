@@ -27,7 +27,7 @@ import {
 import { myDetailsProps, skillsProps, toolsProps } from "../types/types";
 
 const myDetails: myDetailsProps[] = [
-  { question: "Full Name", answer: "Oladele Emmanuel" },
+  { question: "Full Name", answer: "Emmanuel Oluwaferanmi Oladele" },
   { question: "Email", answer: "feranmioladele04@gmail.com" },
   { question: "Primary Role", answer: "Software & AI/ML Engineer" },
   { question: "Degree", answer: "B.Sc. Computer Science" },
@@ -127,11 +127,11 @@ const About = () => {
           <div className="flex-1 w-full sl:max-w-[400px]">
             <img
               src="/favicon.png"
-              alt="Oladele Emmanuel, software and AI/ML engineer"
+              alt="Emmanuel Oluwaferanmi Oladele, software and AI/ML engineer"
               loading="eager"
               width="1254"
               height="1254"
-              className="w-full h-[360px] sl:h-[450px] object-cover object-center rounded-[10px]"
+              className="w-full h-[320px] sm:h-[400px] sl:h-[450px] object-cover object-center rounded-[10px]"
             />
           </div>
           <div className="flex-1 w-full">
@@ -140,9 +140,9 @@ const About = () => {
               duration={1000}
               triggerOnce={true}
             >
-              <h1 className="text-mainDarkColor text-[25px] sl:text-[40px] font-bold">
-                Oladele Emmanuel
-              </h1>
+              <h2 className="text-mainDarkColor text-[25px] sl:text-[40px] font-bold">
+                Emmanuel Oluwaferanmi Oladele
+              </h2>
             </Fade>
 
             <Fade
@@ -174,7 +174,7 @@ const About = () => {
                   triggerOnce={true}
                   delay={(index + 1) * 250}
                 >
-                  <div className="flex items-center gap-x-2 flex-wrap">
+                  <div className="flex items-center gap-x-2 flex-wrap break-words min-w-0">
                     <p className="font-bold">{myDetail.question}:</p>
                     <p>{myDetail.answer}</p>
                   </div>
@@ -191,7 +191,7 @@ const About = () => {
                 href="https://drive.google.com/uc?export=download&id=1ma4c3l7I7gqIqbJXsw2SuT07Xs2OpS6_"
                 rel="noreferrer"
               >
-                <button className="mt-4 max-w-fit px-4 py-2 bg-mainDarkColor text-white text-[15px] rounded-md">
+                <button className="mt-4 max-w-fit px-5 py-3 bg-mainDarkColor text-white text-[15px] rounded-md">
                   Download CV
                 </button>
               </a>
@@ -201,12 +201,12 @@ const About = () => {
 
         <Title text="Experience." topOfPage={false} />
         <div className="flex gap-y-6 gap-x-[3rem] items-start my-8 md:flex-row flex-col">
-          <div className="flex overflow-x-scroll w-[100%] max-w-fit pb-3 flex-1 pt-2 horizontal-scrollbar min-w-fit">
-            <div className="flex md:flex-col gap-2 md:items-start md:justify-start justify-center items-center min-w-fit">
+          <div className="flex overflow-x-auto w-full max-w-full md:max-w-fit pb-3 flex-1 pt-2 no-scrollbar min-w-0 md:min-w-fit">
+            <div className="flex md:flex-col gap-2 md:items-start md:justify-start justify-start items-center min-w-fit gap-x-4">
               {companies.map((company) => (
                 <button
                   type="button"
-                  className={`flex flex-col experience cursor-pointer min-w-fit max-w-fit ${
+                  className={`flex flex-col experience cursor-pointer py-2 px-1 min-w-fit max-w-fit ${
                     company === experienceInView?.company
                       ? "experience-in-view"
                       : ""
@@ -221,20 +221,20 @@ const About = () => {
             </div>
           </div>
           <div className="w-full flex-1">
-            <h1 className="text-mainDarkerColor text-[25px] sl:text-[40px] font-bold leading-[1]">
+            <h3 className="text-mainDarkerColor text-[25px] sl:text-[40px] font-bold leading-[1]">
               {experienceInView?.company}
-            </h1>
-            <h2 className="text-mainDarkColor text-[1.3rem] sl:text-[2rem] font-bold my-3 leading-[1]">
+            </h3>
+            <h4 className="text-mainDarkColor text-[1.3rem] sl:text-[2rem] font-bold my-3 leading-[1]">
               {experienceInView?.position}
-            </h2>
+            </h4>
             <p className="text-[1.1rem] text-mainDarkGrayColor">
               {experienceInView?.start_date}
               {experienceInView?.end_date && ` - ${experienceInView.end_date}`}
             </p>
 
-            <h3 className="text-[1.1rem] font-bold text-mainDarkColor mt-4 mb-3">
+            <h4 className="text-[1.1rem] font-bold text-mainDarkColor mt-4 mb-3">
               Highlights
-            </h3>
+            </h4>
             <div className="flex flex-col gap-y-4">
               {experienceInView?.works?.map((work) => (
                 <p key={work}>
@@ -259,17 +259,17 @@ const About = () => {
               delay={index * 200}
               triggerOnce={true}
             >
-              <article className="group h-full min-h-[290px] rounded-[10px] bg-white shadow-md overflow-hidden flex flex-col">
-                <div className="h-[120px] bg-mainDarkColor text-white px-6 flex items-center justify-between relative overflow-hidden">
+              <article className="group h-full sm:min-h-[290px] rounded-[10px] bg-white shadow-md overflow-hidden flex flex-col">
+                <div className="min-h-[100px] sm:h-[120px] bg-mainDarkColor text-white px-4 sm:px-6 py-4 flex items-center justify-between gap-3 relative overflow-hidden">
                   <span className="text-[52px] relative z-[1]">
                     {recognition.icon}
                   </span>
-                  <span className="text-[12px] uppercase tracking-[0.2em] border border-white/50 rounded-full px-3 py-2 relative z-[1]">
+                  <span className="text-[11px] sm:text-[12px] uppercase tracking-[0.12em] sm:tracking-[0.2em] border border-white/50 rounded-full px-3 py-2 relative z-[1] text-center">
                     {recognition.label}
                   </span>
                   <span className="absolute -right-8 -bottom-16 w-40 h-40 rounded-full border-[24px] border-white/10" />
                 </div>
-                <div className="p-6 flex flex-col flex-1">
+                <div className="p-5 sm:p-6 flex flex-col flex-1">
                   <h3 className="text-[22px] sm:text-[25px] leading-tight font-bold text-mainDarkColor">
                     {recognition.title}
                   </h3>

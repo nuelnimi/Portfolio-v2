@@ -1,6 +1,6 @@
 {
   "short_name": "Mannycodes",
-  "name": "Oladele Emmanuel Portfolio",
+  "name": "Emmanuel Oluwaferanmi Oladele Portfolio",
   "icons": [
     {
       "src": "favicon.png",
@@ -11,7 +11,7 @@
   ],
   "start_url": "/",
   "display": "standalone",
-  "description": "Portfolio of Oladele Emmanuel, software and AI/ML engineer with Web3 product experience.",
+  "description": "Portfolio of Emmanuel Oluwaferanmi Oladele, software and AI/ML engineer with Web3 product experience.",
   "theme_color": "#000000",
   "background_color": "#ffffff"
 }

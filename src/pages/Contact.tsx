@@ -65,7 +65,7 @@ const Contact = () => {
         <form onSubmit={submit} className="my-8 w-full max-w-[600px]">
           <input
             type="text"
-            className="w-full p-3 bg-white rounded-[10px] placeholder:text-mainDarkColor text-mainDarkColor outline-none border-2 focus:border-mainDarkColor mb-6"
+            className="w-full p-3 text-[16px] bg-white rounded-[10px] placeholder:text-mainDarkColor text-mainDarkColor outline-none border-2 focus:border-mainDarkColor mb-6"
             placeholder="Your name..."
             value={name}
             onChange={(event) => setName(event.target.value)}
@@ -73,14 +73,14 @@ const Contact = () => {
           />
           <input
             type="email"
-            className="w-full p-3 bg-white rounded-[10px] placeholder:text-mainDarkColor text-mainDarkColor outline-none border-2 focus:border-mainDarkColor mb-6"
+            className="w-full p-3 text-[16px] bg-white rounded-[10px] placeholder:text-mainDarkColor text-mainDarkColor outline-none border-2 focus:border-mainDarkColor mb-6"
             placeholder="Your email..."
             value={email}
             onChange={(event) => setEmail(event.target.value)}
             required
           />
           <textarea
-            className="w-full p-3 bg-white rounded-[10px] placeholder:text-mainDarkColor text-mainDarkColor outline-none border-2 focus:border-mainDarkColor mb-6 h-[200px] resize-none"
+            className="w-full p-3 text-[16px] bg-white rounded-[10px] placeholder:text-mainDarkColor text-mainDarkColor outline-none border-2 focus:border-mainDarkColor mb-6 h-[160px] sm:h-[200px] resize-none"
             placeholder="Tell me about your message or project..."
             value={message}
             onChange={(event) => setMessage(event.target.value)}
@@ -88,7 +88,7 @@ const Contact = () => {
           />
           <button
             type="submit"
-            className="w-full p-3 bg-mainDarkColor text-white active:scale-[0.97] rounded-[10px]"
+            className="w-full p-3 text-[16px] bg-mainDarkColor text-white active:scale-[0.97] rounded-[10px]"
           >
             Send message
           </button>

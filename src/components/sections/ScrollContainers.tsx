@@ -1,4 +1,5 @@
 import React, { FC, ReactElement } from "react";
+import HScroll from "../UI/HScroll";
 
 type scrollContainerProps = {
   children: ReactElement[];
@@ -7,17 +8,10 @@ type scrollContainerProps = {
 };
 
 const ScrollContainers: FC<scrollContainerProps> = ({ children }) => {
-  const container = React.useRef<any>(null);
-
   return (
-    <>
-      <div
-        className="flex items-center gap-x-4 horizontal-scrollbar flex-nowrap overflow-x-scroll skills-container pb-4 transition duration-300"
-        ref={container}
-      >
-        {children}
-      </div>
-    </>
+    <HScroll className="flex items-center gap-x-4 flex-nowrap pb-2">
+      {children}
+    </HScroll>
   );
 };
 

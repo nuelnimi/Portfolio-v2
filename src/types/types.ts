@@ -43,7 +43,7 @@ export type ProjectCategories = {
 export type IProject = {
   id: number;
   name: string;
-  platform?: "web" | "mobile" | "desktop" | "ai";
+  platform?: "web" | "mobile" | "desktop" | "ai" | "vr";
   role?: string;
   year?: string;
   placeholderLabel?: string;

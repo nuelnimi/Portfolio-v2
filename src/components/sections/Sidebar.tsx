@@ -43,17 +43,17 @@ const Sidebar: FC = () => {
   const location = useLocation();
   return (
     <aside
-      className={`fixed top-0 left-0 z-[2] w-screen min-h-screen bg-mainDarkColor text-white flex flex-col justify-center items-center ${
+      className={`fixed top-0 left-0 z-[2] w-full h-[100vh] h-[100dvh] overflow-y-auto px-4 bg-mainDarkColor text-white flex flex-col justify-center items-center ${
         sidebarOpened ? "sidebar-open" : "sidebar-hidden"
       }`}
     >
-      <ul className="flex flex-col justify-center items-center gap-y-4 w-screen max-w-[1200px] mx-auto">
+      <ul className="flex flex-col justify-center items-center gap-y-4 w-full max-w-[1200px] mx-auto">
         {links.map((link, index) => {
           const content = (
             <>
               <Link
                 to={link.href}
-                className="mb-[4px] text-[20px] sm:text-[25px] md:text-[30px]"
+                className="block py-2 px-4 mb-[4px] text-[24px] sm:text-[25px] md:text-[30px]"
               >
                 {link.text}
               </Link>
@@ -77,13 +77,13 @@ const Sidebar: FC = () => {
           );
         })}
       </ul>
-      <ul className="w-[70vw] max-w-[500px] mt-14 pt-4 border-t-2 border-white mx-auto flex justify-center items-center gap-x-4">
+      <ul className="w-[70vw] max-w-[500px] mt-10 sm:mt-14 pt-4 border-t-2 border-white mx-auto flex justify-center items-center gap-x-4">
         {socials.map((social, index) => (
           <li
             key={index}
-            className="text-white socials text-[24px] w-[45px] h-[45px] flex justify-center items-center rounded-full"
+            className="text-white socials text-[24px] w-[48px] h-[48px] flex justify-center items-center rounded-full"
           >
-            <a href={social.href} target="_blank" rel="noreferrer">
+            <a href={social.href} target="_blank" rel="noreferrer" aria-label="Social link" className="w-full h-full flex justify-center items-center">
               {social.icon}
             </a>
           </li>

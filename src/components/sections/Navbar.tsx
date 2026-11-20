@@ -11,7 +11,7 @@ const Navbar = () => {
         {/* navbar brand */}
         <Link
           to={"/"}
-          aria-label="Oladele Emmanuel - Home"
+          aria-label="Emmanuel Oluwaferanmi Oladele - Home"
           className={`block transition-colors ${
             sidebarOpened ? "text-white" : "text-mainDarkColor"
           }`}

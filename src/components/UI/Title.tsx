@@ -6,24 +6,35 @@ type TitleProps = {
   topOfPage: boolean;
   subtitle?: string;
   smallSize?: boolean;
+  /** heading level; defaults to h1 for the page title, h2 for sections */
+  level?: 1 | 2;
 };
 
-const Title: FC<TitleProps> = ({ text, topOfPage, subtitle, smallSize }) => {
+const Title: FC<TitleProps> = ({
+  text,
+  topOfPage,
+  subtitle,
+  smallSize,
+  level,
+}) => {
+  const Heading = (level ?? (topOfPage ? 1 : 2)) === 1 ? "h1" : "h2";
   return (
-    <header className={`${topOfPage ? "mb-3" : "mt-12 mb-3"}`}>
+    <header className={`${topOfPage ? "mb-3" : "mt-10 sm:mt-12 mb-3"}`}>
       <Fade direction="up" cascade={true} triggerOnce={true} damping={0.5}>
-        <h1
+        <Heading
           className={`${
             smallSize
               ? `text-[23px] sm:text-[25px] md:text-[30px]`
-              : "text-[40px] sm:text-[45px] md:text-[50px]"
+              : "text-[32px] xs:text-[38px] sm:text-[45px] md:text-[50px] break-words"
           } text-mainDarkColor font-bold leading-[1.3]`}
         >
           {text}
-        </h1>
+        </Heading>
       </Fade>
       {subtitle && (
-        <p className="mt-3 text-[1.1rem] text-mainDarkColor">{subtitle}</p>
+        <p className="mt-3 text-[1rem] sm:text-[1.1rem] text-mainDarkColor">
+          {subtitle}
+        </p>
       )}
     </header>
   );
